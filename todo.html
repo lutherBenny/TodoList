@@ -1,0 +1,147 @@
+<body style="background-color: rgb(202, 198, 191);">
+
+
+
+<h1 style="text-align: center; margin-top: 40px;">STUDENT DETAILS</h1>
+
+<div class="table-container" >
+      
+    <table border="1" style="width: 300px; margin:0 auto;">
+         <tr>
+            <th>Name</th>
+            <td><input id="name" type="text" placeholder="enter your name" style="width: 260px; padding: 5px;"></td>
+         </tr>
+
+         <tr>
+            <th>Age</th>
+            <td><input id="age" type="text" placeholder="enter your age" style="width: 260px; padding: 5px;"></td>
+         </tr>
+
+         <tr>
+            <th style="padding: 5px;">Gender</th>
+
+            <td>
+                <input id="gendermale" type="radio" name="gender" value="male" >Male
+                <input id="genderfemale" type="radio" name="gender" value="female">Female
+            </td>
+         </tr>
+
+         <tr>
+            <th>Course</th>
+            <td>
+                <select id="course" style="width: 260px; padding: 5px;">
+                <option value="">Select Course</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
+            </select></td>
+         </tr>
+
+         <tr>
+            <th>Email</th>
+            <td><input id="email" type="text" placeholder="enter your email" style="width: 260px; padding: 5px;"></td>
+         </tr>
+
+         <tr>
+            <td colspan="2" style="text-align: center;">
+                <button id="savebutton" style="width: 325px; padding: 5px;">Save</button></td>
+         </tr>
+
+    </table>
+
+</div>
+
+<table id="studentTable" style="width: 100%; max-width: 600px; margin:0 auto; margin-top: 40px; padding: 1px; " border="1">
+
+    <thead>
+
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Course</th>
+        <th>Email</th>
+        <th>Action</th>
+
+
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<style>
+
+
+.table-container button{
+
+    cursor: pointer;
+}
+
+    .delete-button{
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+
+</style>
+
+
+<script>
+    document.getElementById('savebutton').addEventListener('click', function() {
+            // Retrieve values from input fields
+            const name = document.getElementById("name").value; // ID: name
+            const age = document.getElementById("age").value; // ID: age
+
+            let gender = "";
+            if (document.getElementById("gendermale").checked) {
+                gender = document.getElementById("gendermale").value;
+            } else if (document.getElementById("genderfemale").checked) {
+                gender = document.getElementById("genderfemale").value;
+            }
+
+            const course = document.getElementById('course').value; // ID: course
+            const email = document.getElementById('email').value; // ID: email
+
+            // Check if all fields are filled
+            if (name && age && gender && course && email) {
+                // Add a new row to the table
+                const table = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                // Insert cells and their content
+                const nameCell = newRow.insertCell(0);
+                const ageCell = newRow.insertCell(1);
+                const genderCell = newRow.insertCell(2);
+                const courseCell = newRow.insertCell(3);
+                const emailCell = newRow.insertCell(4);
+                const actionsCell = newRow.insertCell(5);
+
+                nameCell.textContent = name;
+                ageCell.textContent = age;
+                genderCell.textContent = gender;
+                courseCell.textContent = course;
+                emailCell.textContent = email;
+
+                // Add a delete button to each row
+               const deletebutton=document.createElement("button");
+               deletebutton.textContent="Delete";
+               deletebutton.className="delete-button"  // Add css style
+
+               deletebutton.onclick=function()
+               {
+                table.deleteRow(newRow.rowIndex-1);
+
+               };
+               actionsCell.appendChild(deletebutton);
+ 
+            } 
+        });
+
+
+  
+</script>
+
+</body>

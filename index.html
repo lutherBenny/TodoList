@@ -1,0 +1,142 @@
+<body style="background-color: rgb(227, 237, 241);">
+
+    <h1 style="text-align: center; margin-top: 40px;">STUDENT DETAILS</h1>
+
+    <div class="form-container">
+        <table style="width: 300px; margin: 0 auto;" border="1">
+            <tr>
+                <th>Name</th>
+                <td><input style="width: 240px;" type="text" id="name" placeholder="Enter Name"></td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td><input style="width: 240px;" type="text" id="age" placeholder="Enter Age"></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>
+                    <input type="radio" name="gender" id="genderMale" value="Male"> Male
+                    <input type="radio" name="gender" id="genderFemale" value="Female"> Female
+                </td>
+            </tr>
+            <tr>
+                <th>Course</th>
+                <td>
+                    <select style="width: 240px;" id="course">
+                        <option value="">Select Course</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="JavaScript">JavaScript</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input style="width: 240px;" type="text" id="email" placeholder="Enter Email"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button id="saveButton">Save</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table id="studentTable" style="width: 100%; max-width: 600px; margin: 20px auto;" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Course</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <style>
+        
+        .form-container button {
+            width: 300px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+       
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: darkred;
+        }
+    </style>
+
+    <script>
+        document.getElementById('saveButton').addEventListener('click', function() {
+            // Retrieve values from input fields
+            const name = document.getElementById('name').value; // ID: name
+            const age = document.getElementById('age').value; // ID: age
+
+            let gender = '';
+            if (document.getElementById('genderMale').checked) {
+                gender = document.getElementById('genderMale').value;
+            } else if (document.getElementById('genderFemale').checked) {
+                gender = document.getElementById('genderFemale').value;
+            }
+
+            const course = document.getElementById('course').value; // ID: course
+            const email = document.getElementById('email').value; // ID: email
+
+            // Check if all fields are filled
+            if (name && age && gender && course && email) {
+                // Add a new row to the table
+                const table = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                // Insert cells and their content
+                const nameCell = newRow.insertCell(0);
+                const ageCell = newRow.insertCell(1);
+                const genderCell = newRow.insertCell(2);
+                const courseCell = newRow.insertCell(3);
+                const emailCell = newRow.insertCell(4);
+                const actionsCell = newRow.insertCell(5);
+
+                nameCell.textContent = name;
+                ageCell.textContent = age;
+                genderCell.textContent = gender;
+                courseCell.textContent = course;
+                emailCell.textContent = email;
+
+                // Add a delete button to each row
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button'; // Apply CSS class
+                deleteButton.onclick = function() {
+                    table.deleteRow(newRow.rowIndex - 1);
+                };
+                actionsCell.appendChild(deleteButton);
+
+                // Clear form fields after saving
+                document.getElementById('name').value = '';
+                document.getElementById('age').value = '';
+                document.getElementById('genderMale').checked = false;
+                document.getElementById('genderFemale').checked = false;
+                document.getElementById('course').value = '';
+                document.getElementById('email').value = '';
+               
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+    </script>
+
+</body>
